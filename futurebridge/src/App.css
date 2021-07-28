@@ -4,3 +4,9 @@
   background-color: blueviolet;
   width: 100%;
 }
+
+.cards{
+  box-sizing: border-box 2px solid black;
+  padding: 5px;
+  display: inline-block;
+}

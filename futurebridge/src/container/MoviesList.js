@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-
+import '../App.css'
 
 const MoviesList = () => {
 
@@ -8,31 +8,34 @@ const MoviesList = () => {
 
     const fetchMovie = async()=>{
         const data =  await axios.get('http://localhost:5000/api/getMovies')
-        setMovie(data.data.message)
+        setMovie([data.data.message])
+        console.log(data.data.message)
+        console.log(Movie[0])
 
     }
 
     
     return (
-        <div  style={{textAlign:"Center"}}>
-            <h2>Movie list will render here:-</h2>
-            <div className="button">
-                <button onClick={fetchMovie}>Get Movies</button>
-                
-                  {Movie[0] && Movie.map((item,key)=>{
-                    return(
-                        <div className="cards">
-                            <h3>item.title</h3>
-                        </div>
-                    )
-                })}
-               
+        <>
+        <h1>Movies list here:-</h1>
 
-                
-                
-            </div>
+        <div>
+            <button onClick={fetchMovie}>Get Movies</button>
+        </div> 
+        {Movie[0] ? Movie[0].map((item)=>{
+            return(
+                <div className="cards">
+                    <img src={item.image} alt={item.title}/>
+                    <h2> Title:{item.title}</h2>
+                    <p> subTitle:{item.subTitle}</p>
+                    <p>Description:{item.description}</p>
+                    <p>Ratings:{item.rating}</p>
 
-        </div>
+                </div>
+            )
+        }):<h1>no movies data here</h1>}
+        
+        </>
     )
 }
 
